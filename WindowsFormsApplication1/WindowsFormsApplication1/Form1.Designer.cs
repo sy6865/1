@@ -31,12 +31,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.编辑EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.撤销uToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.复制CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.剪切XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.粘帖VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.mi_Edit_Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_Edit_Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.mi_Edit_Paste = new System.Windows.Forms.ToolStripMenuItem();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,12 +56,13 @@
             // 
             this.编辑EToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.撤销uToolStripMenuItem,
-            this.复制CToolStripMenuItem,
-            this.剪切XToolStripMenuItem,
-            this.粘帖VToolStripMenuItem});
+            this.mi_Edit_Copy,
+            this.mi_Edit_Cut,
+            this.mi_Edit_Paste});
             this.编辑EToolStripMenuItem.Name = "编辑EToolStripMenuItem";
             this.编辑EToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.编辑EToolStripMenuItem.Text = "编辑(&E)";
+            this.编辑EToolStripMenuItem.Click += new System.EventHandler(this.mi_Edit_Paste_Click);
             // 
             // 撤销uToolStripMenuItem
             // 
@@ -69,38 +71,29 @@
             this.撤销uToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.撤销uToolStripMenuItem.Text = "撤销(&U)";
             // 
-            // 复制CToolStripMenuItem
+            // mi_Edit_Copy
             // 
-            this.复制CToolStripMenuItem.Name = "复制CToolStripMenuItem";
-            this.复制CToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.复制CToolStripMenuItem.Text = "复制(&C)";
-            this.复制CToolStripMenuItem.Click += new System.EventHandler(this.复制CToolStripMenuItem_Click);
+            this.mi_Edit_Copy.Name = "mi_Edit_Copy";
+            this.mi_Edit_Copy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.mi_Edit_Copy.Size = new System.Drawing.Size(161, 22);
+            this.mi_Edit_Copy.Text = "复制(&C)";
+            this.mi_Edit_Copy.Click += new System.EventHandler(this.mi_Edit_Copy_Click);
             // 
-            // 剪切XToolStripMenuItem
+            // mi_Edit_Cut
             // 
-            this.剪切XToolStripMenuItem.Name = "剪切XToolStripMenuItem";
-            this.剪切XToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.剪切XToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.剪切XToolStripMenuItem.Text = "剪切(&X)";
-            this.剪切XToolStripMenuItem.Click += new System.EventHandler(this.剪切XToolStripMenuItem_Click);
+            this.mi_Edit_Cut.Name = "mi_Edit_Cut";
+            this.mi_Edit_Cut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.mi_Edit_Cut.Size = new System.Drawing.Size(161, 22);
+            this.mi_Edit_Cut.Text = "剪切(&X)";
+            this.mi_Edit_Cut.Click += new System.EventHandler(this.mi_Edit_Cut_Click);
             // 
-            // 粘帖VToolStripMenuItem
+            // mi_Edit_Paste
             // 
-            this.粘帖VToolStripMenuItem.Name = "粘帖VToolStripMenuItem";
-            this.粘帖VToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.粘帖VToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.粘帖VToolStripMenuItem.Text = "粘帖(&V)";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 25);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(520, 358);
-            this.textBox1.TabIndex = 1;
+            this.mi_Edit_Paste.Name = "mi_Edit_Paste";
+            this.mi_Edit_Paste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.mi_Edit_Paste.Size = new System.Drawing.Size(161, 22);
+            this.mi_Edit_Paste.Text = "粘帖(&V)";
+            this.mi_Edit_Paste.Click += new System.EventHandler(this.mi_Edit_Paste_Click_Click);
             // 
             // 文件ToolStripMenuItem
             // 
@@ -115,6 +108,22 @@
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
             this.打开ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.打开ToolStripMenuItem.Text = "打开";
+            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(0, 25);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(520, 358);
+            this.textBox1.TabIndex = 1;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // 记事本
             // 
@@ -138,12 +147,13 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 编辑EToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 撤销uToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 复制CToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 剪切XToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 粘帖VToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mi_Edit_Copy;
+        private System.Windows.Forms.ToolStripMenuItem mi_Edit_Cut;
+        private System.Windows.Forms.ToolStripMenuItem mi_Edit_Paste;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
